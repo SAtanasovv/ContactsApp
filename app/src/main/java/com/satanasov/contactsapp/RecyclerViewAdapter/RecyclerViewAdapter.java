@@ -35,6 +35,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         User user = userList.get(position);
+        holder.fullName.setText(user.getFirstName()+" "+user.getLastName());
+        holder.phoneNumber.setText(user.getPhoneNumber());
 
 
     }
@@ -46,19 +48,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView firstName;
-        public TextView lastName;
+        public TextView fullName;
         public TextView phoneNumber;
-        public TextView email;
         public Button editButton;
         public Button deleteButton;
 
         public ViewHolder(@NonNull View view,Context ctx) {
             super(view);
             context=ctx;
-            firstName = view.findViewById(R.id.firstNameEditTextID);
-            lastName = view.findViewById(R.id.lastNameEditTextID);
-           // phoneNumber=view.findViewById(R.id.)
+            fullName= view.findViewById(R.id.fullNameTextViewID);
+            phoneNumber=view.findViewById(R.id.ponenumberTextViewID);
+            editButton= view.findViewById(R.id.editButtonID);
+            deleteButton = view.findViewById(R.id.deleteButtonID);
         }
     }
 }

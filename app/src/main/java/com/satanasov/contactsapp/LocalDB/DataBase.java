@@ -4,13 +4,14 @@ import android.util.Log;
 
 import com.satanasov.contactsapp.Model.User;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class DataBase {
 
@@ -21,7 +22,6 @@ public class DataBase {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("test.txt", Context.MODE_APPEND));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
@@ -39,23 +39,21 @@ public class DataBase {
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
+                Scanner input = new Scanner(inputStreamReader);
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                while ( ( input.hasNext()) ) {
 
-                    String firstName=receiveString;
-                    String lastName=receiveString;
-                    String email=receiveString;
-                    String phoneNumber=receiveString;
+                    String firstName=input.next();
+                    String lastName=input.next();
+                    String email=input.next();
+                    String phoneNumber=input.next();
 
                     User user =  new User(firstName,lastName,email,phoneNumber);
                     users.add(user);
                 }
 
                 inputStream.close();
-               // ret = stringBuilder.toString();
+
             }
         }
         catch (FileNotFoundException e) {
@@ -66,46 +64,20 @@ public class DataBase {
 
         return users;
     }
-
+    public int getCount(List arrayList){
+        int count = 0;
+        for(int i=0;i<arrayList.size();i++){
+            count++;
+        }
+            return count;
+    }
 
 
 
 
 
 //	//REMOVE USER FROM DB
-//	public void removeUser(Waitress a) {
-//		File txtFile = new File(database_file_location);
-//		if (!txtFile.exists())
-//			log("File doesn't exist");
-//
-//		InputStreamReader isReader;
-//		try {
-//			isReader = new InputStreamReader(new FileInputStream(txtFile), "UTF-8");
-//
-//			JsonReader myReader = new JsonReader(isReader);
-//
-//		   Type listType = new TypeToken<ArrayList<Waitress>>() {}.getType();
-//           ArrayList<Waitress> users = new Gson().fromJson(myReader, listType);
-//
-//           for (Waitress user : users) {
-//        	  if(user.name.equals(a.name) && user.pinCode.equals(a.pinCode)) {
-//        		  users.remove(user);
-//        		  insertIntoDatabase(gson.toJson(users));
-//        		  log("USER: " + user.name + " " + user.pinCode + " removed from database");
-//        		  break;
-//        	  }
-//           }
-//
-//
-//		} catch (Exception e) {
-//			log("error load cache from file " + e.toString());
-//
-//		}
-//
-//	}
 
-    public void log(String string) {
-        System.out.println(string);
-    }
+
 
 }

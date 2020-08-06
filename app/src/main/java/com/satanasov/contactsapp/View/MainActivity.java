@@ -20,6 +20,9 @@ import com.satanasov.contactsapp.LocalDB.DataBase;
 import com.satanasov.contactsapp.Model.User;
 import com.satanasov.contactsapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -38,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         db= new DataBase();
         context=this;
-
         FloatingActionButton fab = findViewById(R.id.floatingButtonMainID);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,16 +97,14 @@ public class MainActivity extends AppCompatActivity {
 
         db.insertIntoDatabase(user.toString(),context);
         System.out.println(db.readFromFile(context));
-       // Toast.makeText(context, db.readFromFile(context), Toast.LENGTH_LONG).show();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 dialog.dismiss();
-                //start a new activity
                 startActivity(new Intent(MainActivity.this, ContactListActivity.class));
             }
         }, 1200); //  1 second.
     }
-
 
 }
