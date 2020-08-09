@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
             else if(!isValidEmail(emailNameEditText.getText().toString())){
                 Toast.makeText(context, "Enter a valid email address", Toast.LENGTH_SHORT).show();
             }
+            else if(!maleRadioButton.isChecked()&&!femaleRadioButton.isChecked()){
+                    Toast.makeText(context, "Select gender", Toast.LENGTH_SHORT).show();
+            }
             else
                 saveContactToDB();
             }

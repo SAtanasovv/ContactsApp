@@ -26,22 +26,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private AlertDialog alertDialog;
     private LayoutInflater inflater;
 
-    public RecyclerViewAdapter( Context context,List<User> userList) {
+    public RecyclerViewAdapter(Context context, List<User> userList) {
         this.userList = userList;
         this.context = context;
     }
 
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contact_list_row,parent,false);
+                .inflate(R.layout.contact_list_row, parent, false);
         return new ViewHolder(view, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         User user = userList.get(position);
-        holder.fullName.setText(user.getFirstName()+" "+user.getLastName());
+        holder.fullName.setText(user.getFirstName() + " " + user.getLastName());
         holder.phoneNumber.setText(user.getPhoneNumber());
 
 
@@ -59,48 +59,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public Button editButton;
         public Button deleteButton;
 
-        public ViewHolder(@NonNull View view,Context ctx) {
+        public ViewHolder(@NonNull View view, Context ctx) {
             super(view);
-            context=ctx;
-            fullName= view.findViewById(R.id.fullNameTextViewID);
-            phoneNumber=view.findViewById(R.id.ponenumberTextViewID);
-            editButton= view.findViewById(R.id.editButtonID);
+            context = ctx;
+            fullName = view.findViewById(R.id.fullNameTextViewID);
+            phoneNumber = view.findViewById(R.id.ponenumberTextViewID);
+            editButton = view.findViewById(R.id.editButtonID);
             deleteButton = view.findViewById(R.id.deleteButtonID);
             editButton.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
+            // Going to Details Activity
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    User user = userList.get(position);
-                    Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra("fullName",user.getFirstName()+" "+user.getLastName());
-                    intent.putExtra("phoneNumber",user.getPhoneNumber());
-                    intent.putExtra("email",user.getEmail());
-                    intent.putExtra("country",user.getCountry());
-                    intent.putExtra("gender",user.getGender());
-                    context.startActivity(intent);
+                    goToDetails();
                 }
             });
         }
 
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.editButtonID:
                     break;
                 case R.id.deleteButtonID:
-                    int position =getAdapterPosition();
-                    User user =userList.get(position);
+                    int position = getAdapterPosition();
+                    User user = userList.get(position);
                     deleteContact(user);
                     break;
             }
         }
 
-        public void deleteContact(final User user){
+        public void deleteContact(final User user) {
             alertDialogBuilder = new AlertDialog.Builder(context);
             inflater = LayoutInflater.from(context);
-            View view = inflater.inflate(R.layout.confirmation_dialog,null);
+            View view = inflater.inflate(R.layout.confirmation_dialog, null);
             Button cancelButton = view.findViewById(R.id.cancelButtonConfirmationDialogID);
             Button yesButton = view.findViewById(R.id.yesButtonConfirmationDialogID);
 
@@ -121,8 +114,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     DataBase db = new DataBase();
                     userList.remove(user);
                     db.deleteDatabase(context);
-                    for(User user : userList){
-                        db.insertIntoDatabase(user.toString(),context);
+                    for (User user : userList) {
+                        db.insertIntoDatabase(user.toString(), context);
                     }
                     notifyItemRemoved(getAdapterPosition());
                     alertDialog.dismiss();
@@ -131,5 +124,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             });
 
         }
+
+        public void goToDetails() {
+            int position = getAdapterPosition();
+            User user = userList.get(position);
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra("fullName", user.getFirstName() + " " + user.getLastName());
+            intent.putExtra("phoneNumber", user.getPhoneNumber());
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("country", user.getCountry());
+            intent.putExtra("gender", user.getGender());
+            context.startActivity(intent);
+        }
+
     }
 }

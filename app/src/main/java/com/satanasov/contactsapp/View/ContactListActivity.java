@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -109,6 +107,9 @@ public class ContactListActivity extends AppCompatActivity {
                 else if(!isValidEmail(emailNameEditText.getText().toString())){
                     Toast.makeText(context, "Enter a valid email address", Toast.LENGTH_SHORT).show();
                 }
+                else if(!maleRadioButton.isChecked()&&!femaleRadioButton.isChecked()){
+                    Toast.makeText(context, "Select gender", Toast.LENGTH_SHORT).show();
+                }
                 else
                     saveContactToDB();
                     createRecyclerView();
@@ -147,21 +148,22 @@ public class ContactListActivity extends AppCompatActivity {
         return email.matches(regex);
     }
     public void radioButtons(){
-        maleRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gender=maleRadioButton.getText().toString();
-                femaleRadioButton.setChecked(false);
 
-            }
-        });
-        femaleRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gender=femaleRadioButton.getText().toString();
-                maleRadioButton.setChecked(false);
-            }
-        });
+            maleRadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gender = maleRadioButton.getText().toString();
+                    femaleRadioButton.setChecked(false);
+
+                }
+            });
+            femaleRadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gender = femaleRadioButton.getText().toString();
+                    maleRadioButton.setChecked(false);
+                }
+            });
 
     }
     public void countrySpinner(View view) {

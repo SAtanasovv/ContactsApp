@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,8 +33,6 @@ public class DataBase {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
-
-
     // READ FROM DATABASE
     public List readFromFile(Context context) {
         List<User> users = new ArrayList<>();
@@ -56,13 +52,10 @@ public class DataBase {
                     String country =input.next();
                     String gender = input.next();
 
-
                     User user = new User(firstName, lastName, email,phoneNumber,country,gender);
                     users.add(user);
                 }
-
                 inputStream.close();
-
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
