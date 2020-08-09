@@ -1,4 +1,13 @@
 <resources>
+    <string-array name="countries">
+        <item>Select country</item>
+        <item>Bulgaria</item>
+        <item>Germany</item>
+        <item>Netherlands</item>
+
+    </string-array>
+
+
     <string name="app_name">ContactsApp</string>
     <string name="add_first_contact">Create your first contact</string>
     <string name="new_contact">Create new contact</string>
@@ -10,4 +19,12 @@
     <string name="female">Female</string>
     <string name="contact_name">ContactName</string>
     <string name="save">Save Contact</string>
+    <string name="confirm_dialog">Do you want to delete this contact?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">"Name: "</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="country">Country</string>
+    <string name="gender">Gender</string>
 </resources>

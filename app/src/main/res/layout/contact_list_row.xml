@@ -8,33 +8,33 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewContactlistRowID"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ButtonBar"
+        android:layout_width="376dp"
+        android:layout_height="94dp"
+        android:padding="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="30dp"
-        style="@style/Widget.AppCompat.ButtonBar"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="116dp"
             android:padding="15dp">
 
             <TextView
                 android:id="@+id/fullNameTextViewID"
-                android:layout_width="141dp"
+                android:layout_width="228dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="15dp"
+                android:paddingBottom="10dp"
                 android:text="@string/contact_name"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/ponenumberTextViewID"
-                android:layout_width="138dp"
-                android:layout_height="32dp"
+                android:layout_width="228dp"
+                android:layout_height="33dp"
                 android:layout_below="@+id/fullNameTextViewID"
                 android:text="TextView" />
 
@@ -49,21 +49,20 @@
 
                 <Button
                     android:id="@+id/editButtonID"
+                    style="@style/Widget.AppCompat.ButtonBar"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/ic_menu_edit"
-                    style="@style/Widget.AppCompat.ButtonBar"
                     android:layout_marginEnd="10dp"
-                    android:paddingHorizontal="150dp"
-                    android:backgroundTint="@color/editColorAccent"/>
+                    android:background="@android:drawable/ic_menu_edit"
+                    android:backgroundTint="@color/editColorAccent"
+                    android:paddingHorizontal="150dp" />
 
                 <Button
                     android:id="@+id/deleteButtonID"
+                    style="@style/Widget.AppCompat.ButtonBar"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.ButtonBar"
-                    android:background="@android:drawable/ic_delete"
-                    />
+                    android:background="@android:drawable/ic_delete" />
             </TableRow>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

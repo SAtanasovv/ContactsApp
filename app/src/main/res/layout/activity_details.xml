@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.DetailsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.447">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="265dp">
+
+            <TextView
+                android:id="@+id/nameDetailsID"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="120dp"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/phoneDetailsId"
+                android:layout_width="128dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/nameDetailsID"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="135dp"
+                android:layout_marginBottom="68dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/emailDetailsID"
+                android:layout_width="134dp"
+                android:layout_height="37dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="143dp"
+                android:layout_marginEnd="86dp"
+                android:layout_marginBottom="85dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/genderDetailsID"
+                android:layout_width="136dp"
+                android:layout_height="38dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="232dp"
+                android:layout_marginEnd="128dp"
+                android:layout_marginBottom="-5dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/countryDetailsID"
+                android:layout_width="112dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="151dp"
+                android:layout_marginBottom="41dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="69dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginBottom="202dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/name"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/editTextTextPersonName3"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginBottom="158dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/phone_number"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/editTextTextPersonName5"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="57dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/country"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/editTextTextPersonName4"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="29dp"
+                android:layout_marginBottom="109dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/email"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/editTextTextPersonName6"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="10dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/gender"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

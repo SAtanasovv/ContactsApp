@@ -11,6 +11,7 @@ public class User {
 
 
     public User() {
+
     }
 
     public User(String firstName, String lastName, String email, String phoneNumber) {
@@ -20,7 +21,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String firstName, String lastName, String email, String country, String gender, String phoneNumber) {
+    public User(String firstName, String lastName, String email, String phoneNumber, String country, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -79,6 +80,6 @@ public class User {
 
     @Override
     public String toString() {
-        return firstName + "\n"+ lastName + "\n" + email + "\n" + phoneNumber + "\n";
+        return firstName + "\n" + lastName + "\n" + email + "\n" + phoneNumber + "\n" + country + "\n" + gender + "\n";
     }
 }
