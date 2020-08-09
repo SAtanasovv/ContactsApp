@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.satanasov.contactsapp.LocalDB.DataBase;
@@ -63,14 +64,7 @@ public class ContactListActivity extends AppCompatActivity {
 
             }
         });
-        recyclerView = findViewById(R.id.contactListRecycleID);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        usersContactsList = db.readFromFile(context);
-        Collections.sort(usersContactsList, compareByName);
-        recyclerAdapter = new RecyclerViewAdapter(this, usersContactsList);
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerAdapter.notifyDataSetChanged();
+        createRecyclerView();
     }
 
     public Comparator<User> compareByName = new Comparator<User>() {
@@ -79,6 +73,8 @@ public class ContactListActivity extends AppCompatActivity {
             return user.getFirstName().compareToIgnoreCase(t1.getFirstName());
         }
     };
+
+
 
     public void showPopUp() {
         dialogBuilder = new AlertDialog.Builder(this);
@@ -104,13 +100,51 @@ public class ContactListActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!firstNameEditText.getText().toString().isEmpty() && !lastNameEditText.getText().toString().isEmpty()
-                        && !emailNameEditText.getText().toString().isEmpty() && !phoneNumberEditText.getText().toString().isEmpty()) {
-                    saveContactToDB();
+                if (firstNameEditText.getText().toString().isEmpty() && lastNameEditText.getText().toString().isEmpty()) {
+                    Toast.makeText(context, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
                 }
+                else if(phoneNumberEditText.length()<10&&phoneNumberEditText.length()>13){
+                    Toast.makeText(context, "Enter a valid number", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isValidEmail(emailNameEditText.getText().toString())){
+                    Toast.makeText(context, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    saveContactToDB();
+                    createRecyclerView();
+
+
             }
         });
 
+    }
+    public void saveContactToDB() {
+        User user = new User();
+        String firstName = firstNameEditText.getText().toString();
+        String lastName = lastNameEditText.getText().toString();
+        String email = emailNameEditText.getText().toString();
+        String phoneNumber = phoneNumberEditText.getText().toString();
+        String country = countrySpinner.getSelectedItem().toString();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setGender(gender);
+        user.setCountry(country);
+
+        db.insertIntoDatabase(user.toString(), context);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+
+            }
+        }, 1200); //  1 second.
+    }
+    static boolean isValidEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
     }
     public void radioButtons(){
         maleRadioButton.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +164,6 @@ public class ContactListActivity extends AppCompatActivity {
         });
 
     }
-
     public void countrySpinner(View view) {
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter
                 .createFromResource(this, R.array.countries, android.R.layout.simple_spinner_item);
@@ -162,31 +195,18 @@ public class ContactListActivity extends AppCompatActivity {
             }
         });
     }
+    public void createRecyclerView(){
+        recyclerView = findViewById(R.id.contactListRecycleID);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        usersContactsList = db.readFromFile(context);
+        Collections.sort(usersContactsList, compareByName);
+        recyclerAdapter = new RecyclerViewAdapter(this, usersContactsList);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerAdapter.notifyDataSetChanged();
 
-    public void saveContactToDB() {
-        User user = new User();
-        String firstName = firstNameEditText.getText().toString();
-        String lastName = lastNameEditText.getText().toString();
-        String email = emailNameEditText.getText().toString();
-        String phoneNumber = phoneNumberEditText.getText().toString();
-        String country = countrySpinner.getSelectedItem().toString();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPhoneNumber(phoneNumber);
-        user.setGender(gender);
-        user.setCountry(country);
-
-        db.insertIntoDatabase(user.toString(), context);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                //startActivity(new Intent(MainActivity.this, ContactListActivity.class));
-            }
-        }, 1200); //  1 second.
     }
+
 
 
 }

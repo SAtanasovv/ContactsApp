@@ -96,6 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     break;
             }
         }
+
         public void deleteContact(final User user){
             alertDialogBuilder = new AlertDialog.Builder(context);
             inflater = LayoutInflater.from(context);

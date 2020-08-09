@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.satanasov.contactsapp.LocalDB.DataBase;
@@ -85,11 +86,17 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!firstNameEditText.getText().toString().isEmpty() && !lastNameEditText.getText().toString().isEmpty()
-                        && !emailNameEditText.getText().toString().isEmpty() && !phoneNumberEditText.getText().toString().isEmpty()) {
-                    saveContactToDB();
-
-                }
+                if (firstNameEditText.getText().toString().isEmpty() && lastNameEditText.getText().toString().isEmpty()) {
+                Toast.makeText(context, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
+            }
+            else if(phoneNumberEditText.length()<10&&phoneNumberEditText.length()>13){
+                Toast.makeText(context, "Enter a valid number", Toast.LENGTH_SHORT).show();
+            }
+            else if(!isValidEmail(emailNameEditText.getText().toString())){
+                Toast.makeText(context, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+            }
+            else
+                saveContactToDB();
             }
         });
 
@@ -112,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
     public void countrySpinner(View view) {
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter
                 .createFromResource(this, R.array.countries, android.R.layout.simple_spinner_item);
@@ -144,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     public void saveContactToDB() {
         User user = new User();
         String firstName = firstNameEditText.getText().toString();
@@ -170,13 +175,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1200); //  1 second.
     }
-
     public void isContactsEmpty() {
         if (!userContacts.isEmpty()) {
             startActivity(new Intent(MainActivity.this, ContactListActivity.class));
             finish();
         }
 
+    }
+    static boolean isValidEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
     }
 
 

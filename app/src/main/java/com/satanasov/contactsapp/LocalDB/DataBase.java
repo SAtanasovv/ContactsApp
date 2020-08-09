@@ -30,7 +30,7 @@ public class DataBase {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(dataBaseFileName, Context.MODE_APPEND));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-            Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
