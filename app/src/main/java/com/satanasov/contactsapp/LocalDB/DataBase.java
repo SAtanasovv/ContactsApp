@@ -79,5 +79,8 @@ public class DataBase {
        //Toast.makeText(context, "Delete Successful", Toast.LENGTH_SHORT).show();
     }
 
+    //SAVE CONTACT
+
+
 
 }

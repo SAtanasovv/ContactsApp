@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ContactListActivity extends AppCompatActivity {
     private                              String              mGender;
-    private                               List               mUsersContactsList;
+    private                              List               mUsersContactsList;
 
     private                              DataBase            mDB;
     private                              Context             mContext;
@@ -51,6 +51,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     private                              Button              mSaveButton;
     private                              Button              mCancelButton;
+    private                          FloatingActionButton            fab;
 
 
     @Override
@@ -59,11 +60,17 @@ public class ContactListActivity extends AppCompatActivity {
         setContentView(R.layout.contact_list);
         mDB = new DataBase();
         mContext = this;
-        FloatingActionButton fab = findViewById(R.id.floating_button_contact_list_id);
+        fab = findViewById(R.id.floating_button_contact_list_id);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopUp();
+
 
 
             }
@@ -80,51 +87,51 @@ public class ContactListActivity extends AppCompatActivity {
 
 
 
-    public void showPopUp() {
-        mDialogBuilder              = new AlertDialog.Builder(this);
-        View view                   = getLayoutInflater().inflate(R.layout.user_details_popup, null);
-        mFirstNameEditText          = view.findViewById(R.id.first_name_user_details_id);
-        mLastNameEditText           = view.findViewById(R.id.last_name_user_details_id);
-        mEmailNameEditText          = view.findViewById(R.id.email_user_details_id);
-        mPhoneNumberEditText        = view.findViewById(R.id.phone_number_user_details_id);
-        mCountrySpinner             = view.findViewById(R.id.country_spiner_user_details_id);
-        mCancelButton               = view.findViewById(R.id.cancelBtn_user_details_id);
-        mSaveButton                 = view.findViewById(R.id.saveBtn_user_details_id);
-        mMaleRadioButton            = view.findViewById(R.id.male_radioBtn_user_details_id);
-        mFemaleRadioButton          = view.findViewById(R.id.female_user_details_id);
-        //Spinner
-        countrySpinner(view);
-        radioButtons();
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-            }
-        });
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mFirstNameEditText.getText().toString().isEmpty() && mLastNameEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(mContext, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
-                }
-                else if(mPhoneNumberEditText.length()<10&&mPhoneNumberEditText.length()>13){
-                    Toast.makeText(mContext, "Enter a valid number", Toast.LENGTH_SHORT).show();
-                }
-                else if(!isValidEmail(mEmailNameEditText.getText().toString())){
-                    Toast.makeText(mContext, "Enter a valid email address", Toast.LENGTH_SHORT).show();
-                }
-                else if(!mMaleRadioButton.isChecked()&&!mFemaleRadioButton.isChecked()){
-                    Toast.makeText(mContext, "Select gender", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    saveContactToDB();
-                    createRecyclerView();
-
-
-            }
-        });
-
-    }
+//    public void showPopUp() {
+//        mDialogBuilder              = new AlertDialog.Builder(this);
+//        View view                   = getLayoutInflater().inflate(R.layout.user_details_popup, null);
+//        mFirstNameEditText          = view.findViewById(R.id.first_name_user_details_id);
+//        mLastNameEditText           = view.findViewById(R.id.last_name_user_details_id);
+//        mEmailNameEditText          = view.findViewById(R.id.email_user_details_id);
+//        mPhoneNumberEditText        = view.findViewById(R.id.phone_number_user_details_id);
+//        mCountrySpinner             = view.findViewById(R.id.country_spiner_user_details_id);
+//        mCancelButton               = view.findViewById(R.id.cancelBtn_user_details_id);
+//        mSaveButton                 = view.findViewById(R.id.saveBtn_user_details_id);
+//        mMaleRadioButton            = view.findViewById(R.id.male_radioBtn_user_details_id);
+//        mFemaleRadioButton          = view.findViewById(R.id.female_user_details_id);
+//        //Spinner
+//        countrySpinner(view);
+//        radioButtons();
+//        mCancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mDialog.dismiss();
+//            }
+//        });
+//        mSaveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mFirstNameEditText.getText().toString().isEmpty() && mLastNameEditText.getText().toString().isEmpty()) {
+//                    Toast.makeText(mContext, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(mPhoneNumberEditText.length()<10&&mPhoneNumberEditText.length()>13){
+//                    Toast.makeText(mContext, "Enter a valid number", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(!isValidEmail(mEmailNameEditText.getText().toString())){
+//                    Toast.makeText(mContext, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(!mMaleRadioButton.isChecked()&&!mFemaleRadioButton.isChecked()){
+//                    Toast.makeText(mContext, "Select gender", Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                    saveContactToDB();
+//                    createRecyclerView();
+//
+//
+//            }
+//        });
+//
+//    }
     public void saveContactToDB() {
         User user = new User(mFirstNameEditText.getText().toString(),mLastNameEditText.getText().toString(),mEmailNameEditText.getText().toString(),
                 mPhoneNumberEditText.getText().toString(),mCountrySpinner.getSelectedItem().toString(),mGender);
@@ -138,60 +145,6 @@ public class ContactListActivity extends AppCompatActivity {
 
             }
         }, 1200); //  1 second.
-    }
-    static boolean isValidEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
-    }
-    public void radioButtons(){
-
-        mMaleRadioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mGender         = mMaleRadioButton.getText().toString();
-                    mFemaleRadioButton.setChecked(false);
-
-                }
-            });
-        mFemaleRadioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mGender         = mFemaleRadioButton.getText().toString();
-                    mMaleRadioButton.setChecked(false);
-                }
-            });
-
-    }
-    public void countrySpinner(View view) {
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter
-                .createFromResource(this, R.array.countries, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCountrySpinner.setAdapter(adapter);
-        mDialogBuilder.setView(view);
-        mDialog = mDialogBuilder.create();
-        mDialog.show();
-        mCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String countrySelected = adapterView.getItemAtPosition(i).toString();
-
-                switch (countrySelected) {
-                    case "Bulgaria":
-                        mPhoneNumberEditText.setText("+359");
-                        break;
-                    case "Germany":
-                        mPhoneNumberEditText.setText("+49");
-                        break;
-                    case "Netherlands":
-                        mPhoneNumberEditText.setText("+31");
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
     }
     public void createRecyclerView(){
         mRecyclerView = findViewById(R.id.contact_list_recycler_id);
