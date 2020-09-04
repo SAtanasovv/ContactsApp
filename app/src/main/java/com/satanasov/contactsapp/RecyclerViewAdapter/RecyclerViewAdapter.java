@@ -20,27 +20,27 @@ import com.satanasov.contactsapp.View.DetailsActivity;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private List<User> userList;
-    private Context context;
-    private AlertDialog.Builder alertDialogBuilder;
-    private AlertDialog alertDialog;
-    private LayoutInflater inflater;
+    private                  List<User>             mUserList;
+    private                  Context                mContext;
+    private                  AlertDialog.Builder    mAlertDialogBuilder;
+    private                  AlertDialog            mAlertDialog;
+    private                  LayoutInflater         mInflater;
 
     public RecyclerViewAdapter(Context context, List<User> userList) {
-        this.userList = userList;
-        this.context = context;
+        this.mUserList       = userList;
+        this.mContext        = context;
     }
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.contact_list_row, parent, false);
-        return new ViewHolder(view, context);
+        return new ViewHolder(view, mContext);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-        User user = userList.get(position);
+        User user           = mUserList.get(position);
         holder.fullName.setText(user.getFirstName() + " " + user.getLastName());
         holder.phoneNumber.setText(user.getPhoneNumber());
 
@@ -49,25 +49,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return mUserList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView fullName;
-        public TextView phoneNumber;
-        public Button editButton;
-        public Button deleteButton;
+        public                  TextView        fullName;
+        public                  TextView        phoneNumber;
+        public                  Button          editButton;
+        public                  Button          deleteButton;
 
         public ViewHolder(@NonNull View view, Context ctx) {
             super(view);
-            context = ctx;
-            fullName = view.findViewById(R.id.fullNameTextViewID);
-            phoneNumber = view.findViewById(R.id.ponenumberTextViewID);
-            editButton = view.findViewById(R.id.editButtonID);
-            deleteButton = view.findViewById(R.id.deleteButtonID);
+            mContext            = ctx;
+            fullName            = view.findViewById(R.id.fullNameTextViewID);
+            phoneNumber         = view.findViewById(R.id.ponenumberTextViewID);
+            editButton          = view.findViewById(R.id.editButtonID);
+            deleteButton        = view.findViewById(R.id.deleteButtonID);
+
             editButton.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
+
             // Going to Details Activity
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,42 +85,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 case R.id.editButtonID:
                     break;
                 case R.id.deleteButtonID:
-                    int position = getAdapterPosition();
-                    User user = userList.get(position);
+                    int position   = getAdapterPosition();
+                    User user      = mUserList.get(position);
                     deleteContact(user);
                     break;
             }
         }
 
         public void deleteContact(final User user) {
-            alertDialogBuilder = new AlertDialog.Builder(context);
-            inflater = LayoutInflater.from(context);
-            View view = inflater.inflate(R.layout.confirmation_dialog, null);
-            Button cancelButton = view.findViewById(R.id.cancelButtonConfirmationDialogID);
-            Button yesButton = view.findViewById(R.id.yesButtonConfirmationDialogID);
+            mAlertDialogBuilder     = new AlertDialog.Builder(mContext);
+            mInflater               = LayoutInflater.from(mContext);
+            View view               = mInflater.inflate(R.layout.confirmation_dialog, null);
+            Button cancelButton     = view.findViewById(R.id.cancelButtonConfirmationDialogID);
+            Button yesButton        = view.findViewById(R.id.yesButtonConfirmationDialogID);
 
-            alertDialogBuilder.setView(view);
-            alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            mAlertDialogBuilder.setView(view);
+            mAlertDialog            = mAlertDialogBuilder.create();
+            mAlertDialog.show();
 
 
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    alertDialog.dismiss();
+                    mAlertDialog.dismiss();
                 }
             });
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DataBase db = new DataBase();
-                    userList.remove(user);
-                    db.deleteDatabase(context);
-                    for (User user : userList) {
-                        db.insertIntoDatabase(user.toString(), context);
+                    DataBase db     = new DataBase();
+                    mUserList.remove(user);
+                    db.deleteDatabase(mContext);
+                    for (User user : mUserList) {
+                        db.insertIntoDatabase(user.toString(), mContext);
                     }
                     notifyItemRemoved(getAdapterPosition());
-                    alertDialog.dismiss();
+                    mAlertDialog.dismiss();
 
                 }
             });
@@ -126,15 +128,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         public void goToDetails() {
-            int position = getAdapterPosition();
-            User user = userList.get(position);
-            Intent intent = new Intent(context, DetailsActivity.class);
+            int position            = getAdapterPosition();
+            User user               = mUserList.get(position);
+            Intent intent           = new Intent(mContext, DetailsActivity.class);
             intent.putExtra("fullName", user.getFirstName() + " " + user.getLastName());
             intent.putExtra("phoneNumber", user.getPhoneNumber());
             intent.putExtra("email", user.getEmail());
             intent.putExtra("country", user.getCountry());
             intent.putExtra("gender", user.getGender());
-            context.startActivity(intent);
+            mContext.startActivity(intent);
         }
 
     }

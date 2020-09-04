@@ -2,84 +2,74 @@ package com.satanasov.contactsapp.Model;
 
 
 public class User {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String country;
-    private String gender;
-    private String phoneNumber;
+    private                      String      mFirstName;
+    private                      String      mLastName;
+    private                      String      mEmail;
+    private                      String      mCountry;
+    private                      String      mGender;
+    private                      String      mPhoneNumber;
 
 
-    public User() {
-
-    }
-
-    public User(String firstName, String lastName, String email, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
 
     public User(String firstName, String lastName, String email, String phoneNumber, String country, String gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.country = country;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
+        this.mFirstName         = firstName;
+        this.mLastName          = lastName;
+        this.mEmail             = email;
+        this.mCountry           = country;
+        this.mGender            = gender;
+        this.mPhoneNumber       = phoneNumber;
     }
 
     public String getFirstName() {
-        return firstName;
+        return mFirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.mFirstName         = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return mLastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.mLastName          = lastName;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail             = email;
     }
 
     public String getCountry() {
-        return country;
+        return mCountry;
     }
 
     public void setCountry(String country) {
-        this.country = country;
+        this.mCountry          = country;
     }
 
     public String getGender() {
-        return gender;
+        return mGender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        this.mGender           = gender;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return mPhoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.mPhoneNumber      = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return firstName + "\n" + lastName + "\n" + email + "\n" + phoneNumber + "\n" + country + "\n" + gender + "\n";
+        return mFirstName + "\n" + mLastName + "\n" + mEmail + "\n" + mPhoneNumber + "\n" + mCountry + "\n" + mGender + "\n";
     }
 }

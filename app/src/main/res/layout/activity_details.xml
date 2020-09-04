@@ -21,31 +21,31 @@
             android:layout_height="265dp">
 
             <TextView
-                android:id="@+id/nameDetailsID"
+                android:id="@+id/name_details_id"
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="120dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="101dp"
                 android:padding="5dp"
                 android:text="TextView"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/phoneDetailsId"
+                android:id="@+id/phone_details_id"
                 android:layout_width="128dp"
                 android:layout_height="35dp"
-                android:layout_below="@+id/nameDetailsID"
+                android:layout_below="@+id/name_details_id"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="135dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="119dp"
                 android:layout_marginBottom="68dp"
                 android:text="TextView"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/emailDetailsID"
+                android:id="@+id/email_details_id"
                 android:layout_width="134dp"
                 android:layout_height="37dp"
                 android:layout_alignParentStart="true"
@@ -60,7 +60,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/genderDetailsID"
+                android:id="@+id/gender_details_id"
                 android:layout_width="136dp"
                 android:layout_height="38dp"
                 android:layout_alignParentTop="true"
@@ -73,7 +73,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/countryDetailsID"
+                android:id="@+id/country_details_id"
                 android:layout_width="112dp"
                 android:layout_height="36dp"
                 android:layout_alignParentEnd="true"
@@ -84,7 +84,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/name_details_text_id"
                 android:layout_width="69dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -98,7 +98,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/phonenumber_details_text_id"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -112,7 +112,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/editTextTextPersonName5"
+                android:id="@+id/country_details_text_id"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -126,7 +126,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/email_details_text_id"
                 android:layout_width="59dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -140,7 +140,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/editTextTextPersonName6"
+                android:id="@+id/gender_details_text_id"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
