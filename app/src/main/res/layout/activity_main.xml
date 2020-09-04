@@ -7,30 +7,30 @@
     tools:context=".View.MainActivity">
 
     <TextView
-        android:id="@+id/enterContactsID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_first_contact"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id                                                      ="@+id/create_contacts_main_text_id"
+        android:layout_width                                            ="wrap_content"
+        android:layout_height                                           ="wrap_content"
+        android:text                                                    ="@string/add_first_contact"
+        android:textSize                                                ="18sp"
+        android:textStyle                                               ="bold"
+        app:layout_constraintBottom_toBottomOf                          ="parent"
+        app:layout_constraintLeft_toLeftOf                              ="parent"
+        app:layout_constraintRight_toRightOf                            ="parent"
+        app:layout_constraintTop_toTopOf                                ="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingButtonMainID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/enterContactsID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:focusable="true" />
+        android:id                                                      ="@+id/floating_button_main_id"
+        android:layout_width                                            ="wrap_content"
+        android:layout_height                                           ="wrap_content"
+        android:layout_marginBottom                                     ="32dp"
+        android:clickable                                               ="true"
+        app:layout_constraintBottom_toTopOf                             ="@+id/create_contacts_main_text_id"
+        app:layout_constraintEnd_toEndOf                                ="parent"
+        app:layout_constraintHorizontal_bias                            ="0.498"
+        app:layout_constraintStart_toStartOf                            ="parent"
+        app:layout_constraintTop_toTopOf                                ="parent"
+        app:layout_constraintVertical_bias                              ="1.0"
+        app:srcCompat                                                   ="@android:drawable/ic_input_add"
+        android:focusable                                               ="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

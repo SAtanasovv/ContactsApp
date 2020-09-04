@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mUserContacts = mDB.readFromFile(mContext);
         isContactsEmpty();
 
-        FloatingActionButton fab = findViewById(R.id.floatingButtonMainID);
+        FloatingActionButton fab = findViewById(R.id.floating_button_main_id);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,15 +64,15 @@ public class MainActivity extends AppCompatActivity {
     public void showPopUp() {
         mDialogBuilder = new AlertDialog.Builder(this);
         View view               = getLayoutInflater().inflate(R.layout.user_details_popup, null);
-        mFirstNameEditText      = view.findViewById(R.id.firstNameEditTextID);
-        mLastNameEditText       = view.findViewById(R.id.lastNameEditTextID);
-        mEmailNameEditText      = view.findViewById(R.id.emailEditTextID);
-        mPhoneNumberEditText    = view.findViewById(R.id.phoneEditTextID);
-        mCountrySpinner         = view.findViewById(R.id.countrySpinnerID);
-        mCancelButton           = view.findViewById(R.id.cancelButtonPopUpId);
-        mSaveButton             = view.findViewById(R.id.saveButtonID);
-        maleRadioButton         = view.findViewById(R.id.maleRadioButtonID);
-        mFemaleRadioButton      = view.findViewById(R.id.femaleRadioButtonID);
+        mFirstNameEditText      = view.findViewById(R.id.first_name_user_details_id);
+        mLastNameEditText       = view.findViewById(R.id.last_name_user_details_id);
+        mEmailNameEditText      = view.findViewById(R.id.email_user_details_id);
+        mPhoneNumberEditText    = view.findViewById(R.id.phone_number_user_details_id);
+        mCountrySpinner         = view.findViewById(R.id.country_spiner_user_details_id);
+        mCancelButton           = view.findViewById(R.id.cancelBtn_user_details_id);
+        mSaveButton             = view.findViewById(R.id.saveBtn_user_details_id);
+        maleRadioButton         = view.findViewById(R.id.male_radioBtn_user_details_id);
+        mFemaleRadioButton      = view.findViewById(R.id.female_user_details_id);
         //Spinner
         countrySpinner(view);
         radioButtons();

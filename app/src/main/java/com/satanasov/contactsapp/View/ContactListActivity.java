@@ -59,7 +59,7 @@ public class ContactListActivity extends AppCompatActivity {
         setContentView(R.layout.contact_list);
         mDB = new DataBase();
         mContext = this;
-        FloatingActionButton fab = findViewById(R.id.floatingButtonContactsID);
+        FloatingActionButton fab = findViewById(R.id.floating_button_contact_list_id);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,15 +83,15 @@ public class ContactListActivity extends AppCompatActivity {
     public void showPopUp() {
         mDialogBuilder              = new AlertDialog.Builder(this);
         View view                   = getLayoutInflater().inflate(R.layout.user_details_popup, null);
-        mFirstNameEditText          = view.findViewById(R.id.firstNameEditTextID);
-        mLastNameEditText           = view.findViewById(R.id.lastNameEditTextID);
-        mEmailNameEditText          = view.findViewById(R.id.emailEditTextID);
-        mPhoneNumberEditText        = view.findViewById(R.id.phoneEditTextID);
-        mCountrySpinner             = view.findViewById(R.id.countrySpinnerID);
-        mCancelButton               = view.findViewById(R.id.cancelButtonPopUpId);
-        mSaveButton                 = view.findViewById(R.id.saveButtonID);
-        mMaleRadioButton            = view.findViewById(R.id.maleRadioButtonID);
-        mFemaleRadioButton          = view.findViewById(R.id.femaleRadioButtonID);
+        mFirstNameEditText          = view.findViewById(R.id.first_name_user_details_id);
+        mLastNameEditText           = view.findViewById(R.id.last_name_user_details_id);
+        mEmailNameEditText          = view.findViewById(R.id.email_user_details_id);
+        mPhoneNumberEditText        = view.findViewById(R.id.phone_number_user_details_id);
+        mCountrySpinner             = view.findViewById(R.id.country_spiner_user_details_id);
+        mCancelButton               = view.findViewById(R.id.cancelBtn_user_details_id);
+        mSaveButton                 = view.findViewById(R.id.saveBtn_user_details_id);
+        mMaleRadioButton            = view.findViewById(R.id.male_radioBtn_user_details_id);
+        mFemaleRadioButton          = view.findViewById(R.id.female_user_details_id);
         //Spinner
         countrySpinner(view);
         radioButtons();
@@ -194,7 +194,7 @@ public class ContactListActivity extends AppCompatActivity {
         });
     }
     public void createRecyclerView(){
-        mRecyclerView = findViewById(R.id.contactListRecycleID);
+        mRecyclerView = findViewById(R.id.contact_list_recycler_id);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mUsersContactsList = mDB.readFromFile(mContext);

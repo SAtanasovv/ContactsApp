@@ -62,10 +62,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(@NonNull View view, Context ctx) {
             super(view);
             mContext            = ctx;
-            fullName            = view.findViewById(R.id.fullNameTextViewID);
-            phoneNumber         = view.findViewById(R.id.ponenumberTextViewID);
-            editButton          = view.findViewById(R.id.editButtonID);
-            deleteButton        = view.findViewById(R.id.deleteButtonID);
+            fullName            = view.findViewById(R.id.full_name_listrow_id);
+            phoneNumber         = view.findViewById(R.id.phonenumber_listrow_id);
+            editButton          = view.findViewById(R.id.edit_button_listrow_id);
+            deleteButton        = view.findViewById(R.id.delete_button_listrow_id);
 
             editButton.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
@@ -82,9 +82,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.editButtonID:
+                case R.id.edit_button_listrow_id:
                     break;
-                case R.id.deleteButtonID:
+                case R.id.delete_button_listrow_id:
                     int position   = getAdapterPosition();
                     User user      = mUserList.get(position);
                     deleteContact(user);
@@ -96,8 +96,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mAlertDialogBuilder     = new AlertDialog.Builder(mContext);
             mInflater               = LayoutInflater.from(mContext);
             View view               = mInflater.inflate(R.layout.confirmation_dialog, null);
-            Button cancelButton     = view.findViewById(R.id.cancelButtonConfirmationDialogID);
-            Button yesButton        = view.findViewById(R.id.yesButtonConfirmationDialogID);
+            Button cancelButton     = view.findViewById(R.id.cancelBtn_delete_dialog_id);
+            Button yesButton        = view.findViewById(R.id.yesBtn_delete_dialog_id);
 
             mAlertDialogBuilder.setView(view);
             mAlertDialog            = mAlertDialogBuilder.create();
