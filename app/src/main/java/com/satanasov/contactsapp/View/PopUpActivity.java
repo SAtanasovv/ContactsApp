@@ -2,6 +2,9 @@ package com.satanasov.contactsapp.View;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,13 +15,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.satanasov.contactsapp.LocalDB.DataBase;
 import com.satanasov.contactsapp.Model.User;
 import com.satanasov.contactsapp.R;
 
-public class PopUpActivity extends Dialog {
+public class PopUpActivity extends DialogFragment {
     private                          DataBase                        mDB;
     private                          AlertDialog.Builder             mDialogBuilder;
     private                          AlertDialog                     mDialog;
@@ -34,14 +39,43 @@ public class PopUpActivity extends Dialog {
     private                          Button                          mCancelButton;
     private                          Context                         mContext;
 
-    public PopUpActivity(@NonNull Context context) {
-        super(context);
-        mContext = context;
-    }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        showPopUp();
+        return mDialogBuilder.create();
+    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        initComponents();
+//    }
 
     public void showPopUp() {
-        mDialogBuilder          = new AlertDialog.Builder(mContext);
+        mDialogBuilder          = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        mDialogBuilder.setView(inflater.inflate(R.layout.user_details_popup, null))
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                       if(!fieldsAreEmpty()){
+                    listener.onSave(PopUpActivity.this);}
+                    }
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                listener.onCancel(PopUpActivity.this);
+
+            }
+        });
+
+
+    }
+
+    public void initComponents(){
+
         View view               = getLayoutInflater().inflate(R.layout.user_details_popup, null);
         mFirstNameEditText      = view.findViewById(R.id.first_name_user_details_id);
         mLastNameEditText       = view.findViewById(R.id.last_name_user_details_id);
@@ -55,32 +89,40 @@ public class PopUpActivity extends Dialog {
         //Spinner
         countrySpinner(view);
         radioButtons();
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-            }
-        });
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mFirstNameEditText.getText().toString().isEmpty() && mLastNameEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(mContext, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
-                }
-                else if(mPhoneNumberEditText.length()<10&&mPhoneNumberEditText.length()>13){
-                    Toast.makeText(mContext, "Enter a valid number", Toast.LENGTH_SHORT).show();
-                }
-                else if(!isValidEmail(mEmailNameEditText.getText().toString())){
-                    Toast.makeText(mContext, "Enter a valid email address", Toast.LENGTH_SHORT).show();
-                }
-                else if(!maleRadioButton.isChecked()&&!mFemaleRadioButton.isChecked()){
-                    Toast.makeText(mContext, "Select gender", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    saveContactToDB();
-            }
-        });
+//        mCancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mDialog.dismiss();
+//            }
+//        });
+//        mSaveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                    listener.onSave(PopUpActivity.this);
+//            }
+//        });
 
+    }
+    public boolean fieldsAreEmpty(){
+        if (mFirstNameEditText.getText().toString().isEmpty() && mLastNameEditText.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(mPhoneNumberEditText.length()<10&&mPhoneNumberEditText.length()>13){
+            Toast.makeText(mContext, "Enter a valid number", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(!isValidEmail(mEmailNameEditText.getText().toString())){
+            Toast.makeText(mContext, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(!maleRadioButton.isChecked()&&!mFemaleRadioButton.isChecked()){
+            Toast.makeText(mContext, "Select gender", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
     }
     public void radioButtons(){
         maleRadioButton.setOnClickListener(new View.OnClickListener() {
@@ -140,8 +182,24 @@ public class PopUpActivity extends Dialog {
         User user = new User(mFirstNameEditText.getText().toString(),mLastNameEditText.getText().toString(),mEmailNameEditText.getText().toString(),
                 mPhoneNumberEditText.getText().toString(),mCountrySpinner.getSelectedItem().toString(),mGender);
         mDB.insertIntoDatabase(user.toString(), mContext);
+
     }
 
+    public interface popUpListener{
+        public void onSave(DialogFragment dialog);
+        public void onCancel(DialogFragment dialog);
 
+    }
+    popUpListener listener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listener = (popUpListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(" must implement NoticeDialogListener");
+        }
+    }
 
 }

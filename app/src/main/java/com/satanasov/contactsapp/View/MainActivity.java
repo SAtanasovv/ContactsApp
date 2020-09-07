@@ -2,6 +2,8 @@ package com.satanasov.contactsapp.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +25,7 @@ import com.satanasov.contactsapp.R;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity implements PopUpActivity.popUpListener {
     private                          AlertDialog                     mDialog;
     private                          DataBase                        mDB;
     private                          Context                         mContext;
@@ -48,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopUpActivity popUp = new PopUpActivity(mContext);
-                popUp.showPopUp();
+                PopUpActivity popUp = new PopUpActivity();
+                popUp.show(getSupportFragmentManager(),"PopUpActivity");
 
             }
         });
     }
+
 
     public void isContactsEmpty() {
         if (!mUserContacts.isEmpty()) {
@@ -62,18 +65,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void handle() {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDialog.dismiss();
-                startActivity(new Intent(MainActivity.this, ContactListActivity.class));
-                finish();
-            }
-        }, 1200); //  1 second.
+    @Override
+    public void onSave(DialogFragment dialog) {
+        startActivity(new Intent(MainActivity.this, ContactListActivity.class));
+        finish();
     }
 
+    @Override
+    public void onCancel(DialogFragment dialog) {
+
+    }
+//    public void handle() {
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDialog.dismiss();
+//                startActivity(new Intent(MainActivity.this, ContactListActivity.class));
+//                finish();
+//            }
+//        }, 1200); //  1 second.
+//    }
+
+    public void saveContactFromPopUp(){}
 
 
 }

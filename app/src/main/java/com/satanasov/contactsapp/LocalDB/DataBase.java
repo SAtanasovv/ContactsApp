@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataBase {
-    private final String dataBaseFileName = "test12.txt";
+    private final String dataBaseFileName = "test10.txt";
 
 
     //INSERT INTO DATABASE
