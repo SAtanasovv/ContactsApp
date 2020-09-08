@@ -1,4 +1,4 @@
-package com.satanasov.contactsapp.View;
+package com.satanasov.contactsapp;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -18,12 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.satanasov.contactsapp.LocalDB.DataBase;
 import com.satanasov.contactsapp.Model.User;
-import com.satanasov.contactsapp.R;
 
-public class PopUpActivity extends DialogFragment {
+public class PopUpDialog extends DialogFragment {
     private                          DataBase                        mDB;
     private                          AlertDialog.Builder             mDialogBuilder;
     private                          AlertDialog                     mDialog;
@@ -43,7 +43,6 @@ public class PopUpActivity extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        showPopUp();
         return mDialogBuilder.create();
     }
 //
@@ -53,24 +52,30 @@ public class PopUpActivity extends DialogFragment {
 //        initComponents();
 //    }
 
-    public void showPopUp() {
-        mDialogBuilder          = new AlertDialog.Builder(getActivity());
+    public void showPopUp(FragmentTransaction transaction, @Nullable String tag, final popUpListener aa) {
+        mDialogBuilder  = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         mDialogBuilder.setView(inflater.inflate(R.layout.user_details_popup, null))
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                       if(!fieldsAreEmpty()){
-                    listener.onSave(PopUpActivity.this);}
+
+                        aa.onSave(PopUpDialog.this);
                     }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                listener.onCancel(PopUpActivity.this);
+                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        aa.onCancel(PopUpDialog.this);
 
             }
         });
 
+
+    }
+
+
+    public void showPP(@NonNull FragmentTransaction transaction, @Nullable String tag){
+        super.show(transaction, tag);
 
     }
 
@@ -82,43 +87,28 @@ public class PopUpActivity extends DialogFragment {
         mEmailNameEditText      = view.findViewById(R.id.email_user_details_id);
         mPhoneNumberEditText    = view.findViewById(R.id.phone_number_user_details_id);
         mCountrySpinner         = view.findViewById(R.id.country_spiner_user_details_id);
-        mCancelButton           = view.findViewById(R.id.cancelBtn_user_details_id);
-        mSaveButton             = view.findViewById(R.id.saveBtn_user_details_id);
         maleRadioButton         = view.findViewById(R.id.male_radioBtn_user_details_id);
         mFemaleRadioButton      = view.findViewById(R.id.female_user_details_id);
         //Spinner
         countrySpinner(view);
         radioButtons();
-//        mCancelButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mDialog.dismiss();
-//            }
-//        });
-//        mSaveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                    listener.onSave(PopUpActivity.this);
-//            }
-//        });
 
     }
     public boolean fieldsAreEmpty(){
         if (mFirstNameEditText.getText().toString().isEmpty() && mLastNameEditText.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "Enter First Name and/or Last Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.check_first_name_last_name, Toast.LENGTH_SHORT).show();
             return true;
         }
         else if(mPhoneNumberEditText.length()<10&&mPhoneNumberEditText.length()>13){
-            Toast.makeText(mContext, "Enter a valid number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.check_phone_number, Toast.LENGTH_SHORT).show();
             return true;
         }
         else if(!isValidEmail(mEmailNameEditText.getText().toString())){
-            Toast.makeText(mContext, "Enter a valid email address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.check_email, Toast.LENGTH_SHORT).show();
             return true;
         }
         else if(!maleRadioButton.isChecked()&&!mFemaleRadioButton.isChecked()){
-            Toast.makeText(mContext, "Select gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.check_gender, Toast.LENGTH_SHORT).show();
             return true;
         }
 

@@ -2,6 +2,7 @@ package com.satanasov.contactsapp.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,17 +10,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.satanasov.contactsapp.LocalDB.DataBase;
 import com.satanasov.contactsapp.Model.User;
+import com.satanasov.contactsapp.PopUpDialog;
 import com.satanasov.contactsapp.R;
 import com.satanasov.contactsapp.RecyclerViewAdapter.RecyclerViewAdapter;
 
@@ -27,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ContactListActivity extends AppCompatActivity {
+public class ContactListActivity extends AppCompatActivity implements PopUpDialog.popUpListener {
     private                              String              mGender;
     private                              List               mUsersContactsList;
 
@@ -48,9 +46,6 @@ public class ContactListActivity extends AppCompatActivity {
     private                              RadioButton         mMaleRadioButton;
     private                              RadioButton         mFemaleRadioButton;
 
-
-    private                              Button              mSaveButton;
-    private                              Button              mCancelButton;
     private                          FloatingActionButton            fab;
 
 
@@ -61,21 +56,22 @@ public class ContactListActivity extends AppCompatActivity {
         mDB = new DataBase();
         mContext = this;
         fab = findViewById(R.id.floating_button_contact_list_id);
+        createRecyclerView();
 
     }
-
     @Override
     protected void onResume() {
         super.onResume();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PopUpDialog popUp = new PopUpDialog();
+                popUp.show(getSupportFragmentManager(),"PopUpActivity");
 
 
             }
         });
-        createRecyclerView();
+
     }
 
     public Comparator<User> compareByName = new Comparator<User>() {
@@ -159,5 +155,13 @@ public class ContactListActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSave(DialogFragment dialog) {
 
+    }
+
+    @Override
+    public void onCancel(DialogFragment dialog) {
+
+    }
 }

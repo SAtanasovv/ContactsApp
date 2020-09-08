@@ -27,4 +27,9 @@
     <string name="email">Email</string>
     <string name="country">Country</string>
     <string name="gender">Gender</string>
+    <string name="check_first_name_last_name">Enter First Name and/or Last Name</string>
+    <string name="check_phone_number">Enter a valid number</string>
+    <string name="check_email">Enter a valid email address</string>
+    <string name="check_gender">Please select your gender</string>
+
 </resources>
